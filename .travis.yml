@@ -9,6 +9,4 @@ notifications:
 jdk:
   - oraclejdk8
 
-script:
-
-mvn clean verify
+script: mvn clean verify
