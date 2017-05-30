@@ -5,8 +5,10 @@ language: java
 notifications:
   email: false
 
-
 jdk:
   - oraclejdk8
+
+before_install:
+   - chmod +x ./mvn
 
 script: mvn clean verify
