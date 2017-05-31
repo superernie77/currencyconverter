@@ -3,7 +3,7 @@ sudo: required
 language: java
 
 notifications:
-  email: false
+    slack: currency-converter:TwXn4RFCPjUOLRKijvn3jON8
 
 jdk:
   - oraclejdk8
