@@ -13,10 +13,3 @@ before_install:
 
 script: mvn clean verify
 
-deploy:  
-  skip_cleanup: true  
-  provider: heroku  
-  api_key: $HEROKU_API_KEY  
-app:    
-  master: currency-converter-zoo
-
