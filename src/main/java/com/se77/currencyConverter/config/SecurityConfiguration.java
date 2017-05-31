@@ -23,7 +23,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private DataSource dataSource;
 
-    private static final String usersQuery = "select email, password, active from user where email=?";
+    private static final String usersQuery = "select email, password from user where email=?";
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth)
