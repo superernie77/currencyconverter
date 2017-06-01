@@ -38,7 +38,7 @@ public class UserRepositoryTest {
 
         userRepo.save(user);
 
-        User result = userRepo.findByLastName("Elias");
+        User result = userRepo.findByEmail("se77@gmail.com");
 
         assertNotNull(result);
     }

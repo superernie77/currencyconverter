@@ -1,12 +1,14 @@
 package com.se77.currencyConverter.controller;
 
-import static  org.springframework.web.bind.annotation.RequestMethod.*;
+import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 import javax.validation.Valid;
 
 import com.se77.currencyConverter.domain.User;
 import com.se77.currencyConverter.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +25,8 @@ public class LoginController {
     public ModelAndView login() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("login");
+        User user = new User();
+        modelAndView.addObject(user);
         return modelAndView;
     }
 
@@ -42,7 +46,8 @@ public class LoginController {
         modelAndView.addObject("successMessage", "User has been registered successfully");
         modelAndView.addObject("user", new User());
         modelAndView.setViewName("registration");
-
         return modelAndView;
     }
+
+
 }

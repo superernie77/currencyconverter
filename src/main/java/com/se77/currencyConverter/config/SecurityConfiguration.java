@@ -23,7 +23,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private DataSource dataSource;
 
-    private static final String usersQuery = "select email, password from user where email=?";
+    private static final String usersQuery = "select email as principal , password as credentials, true from user where email=?";
+
+    private static final String rolesQuery = "select u.email, r.role from user u inner join user_role ur on(u.user_id=ur.user_id) inner join role r on(ur.role_id=r.role_id) where u.email=?";
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth)
@@ -31,6 +33,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         auth.
                 jdbcAuthentication()
                 .usersByUsernameQuery(usersQuery)
+                .authoritiesByUsernameQuery(rolesQuery)
                 .dataSource(dataSource)
                 .passwordEncoder(bCryptPasswordEncoder);
     }
@@ -40,7 +43,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         http.
                 authorizeRequests()
-                .antMatchers("/**").permitAll();
+                .antMatchers("/").permitAll()
+                .antMatchers("/login").permitAll()
+                .antMatchers("/registration").permitAll()
+                .antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest()
+                .authenticated().and().csrf().disable().formLogin()
+                .loginPage("/login").failureUrl("/login?error=true")
+                .defaultSuccessUrl("/converter")
+                .usernameParameter("email")
+                .passwordParameter("password")
+                .and().logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl("/").and().exceptionHandling()
+                .accessDeniedPage("/access-denied");
     }
 
     @Override
