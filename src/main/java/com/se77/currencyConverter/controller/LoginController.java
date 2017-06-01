@@ -38,7 +38,6 @@ public class LoginController {
     @RequestMapping(value = "/registration", method = POST)
     public ModelAndView createNewUser(@Valid User user, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
-
         userService.saveUser(user);
         modelAndView.addObject("successMessage", "User has been registered successfully");
         modelAndView.addObject("user", new User());
