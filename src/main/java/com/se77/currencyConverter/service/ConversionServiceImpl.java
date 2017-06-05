@@ -8,9 +8,16 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class ConversionServiceImpl implements  ConverterService {
+
+    private ExchangeRateService exchangeRateService;
+
     @Override
     public ConversionBean convert(ConversionBean conversionBean) {
-        conversionBean.setTargetAmount(42d);
+
+        Double result =  exchangeRateService.getExchangeRate(conversionBean.getSourceCurrency(),conversionBean.getTargetCurrency(),conversionBean.getSourceAmount());
+
+        conversionBean.setTargetAmount(result);
+
         return conversionBean;
     }
 }
