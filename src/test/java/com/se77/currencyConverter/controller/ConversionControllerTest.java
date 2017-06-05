@@ -1,0 +1,66 @@
+package com.se77.currencyConverter.controller;
+
+import com.se77.currencyConverter.domain.ConversionBean;
+import com.se77.currencyConverter.repository.ConversionBeanRepository;
+import com.se77.currencyConverter.service.ConverterService;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.Mockito;
+import org.springframework.web.servlet.ModelAndView;
+
+/**
+ * Created by superernie77 on 05.06.2017.
+ */
+public class ConversionControllerTest {
+
+    private ConversionController controller;
+
+    private ConversionBeanRepository conBeanRepo;
+
+    private ConverterService conversionService;
+
+    @Before
+    public void setup(){
+        controller = new ConversionController();
+
+        conBeanRepo =  Mockito.mock(ConversionBeanRepository.class);
+        conversionService = Mockito.mock(ConverterService.class);
+
+        controller.setConvBeanRepo(conBeanRepo);
+        controller.setConversionService(conversionService);
+    }
+
+    @Test
+    public void testConverterModelAndView(){
+        ModelAndView modelAndView = controller.converter();
+
+        // past conversions set
+        Assert.assertNotNull(modelAndView.getModel().get("conversionBeans"));
+
+        Mockito.verify(conBeanRepo).findAll();
+
+        // new conversion is set
+        Assert.assertNotNull(modelAndView.getModel().get("conversionBean"));
+
+    }
+
+    @Test
+    public void testConvertModelAndView(){
+
+        ConversionBean conversionBean = new ConversionBean();
+        Mockito.when(conversionService.convert(conversionBean)).thenReturn(conversionBean);
+
+        ModelAndView modelAndView = controller.convert(conversionBean);
+
+        Mockito.verify(conversionService).convert(conversionBean);
+        Mockito.verify(conBeanRepo).findAll();
+
+        // new conversion result is set
+        Assert.assertNotNull(modelAndView.getModel().get("conversionBean"));
+
+        // past conversions set
+        Assert.assertNotNull(modelAndView.getModel().get("conversionBeans"));
+
+    }
+}

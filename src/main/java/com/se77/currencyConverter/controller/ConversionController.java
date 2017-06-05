@@ -31,23 +31,38 @@ public class ConversionController {
     @RequestMapping(value="/converter", method = RequestMethod.GET)
     public ModelAndView converter(){
         ModelAndView modelAndView = new ModelAndView();
+
+        List<ConversionBean> conversions = convBeanRepo.findAll();
+        modelAndView.addObject("conversionBeans",conversions);
+
+
         modelAndView.addObject("conversionBean", new ConversionBean());
+
         modelAndView.setViewName("converter");
         return modelAndView;
     }
 
     @RequestMapping(value="/converter", method = RequestMethod.POST)
-    public ModelAndView convert(@Valid ConversionBean conversionBean, BindingResult bindingResult){
+    public ModelAndView convert(@Valid ConversionBean conversionBean){
         ModelAndView modelAndView = new ModelAndView();
         ConversionBean result = conversionService.convert(conversionBean);
 
         convBeanRepo.save(result);
 
-        List<ConversionBean> beans = convBeanRepo.findAll();
+        List<ConversionBean> conversions = convBeanRepo.findAll();
+        modelAndView.addObject("conversionBeans",conversions);
 
         modelAndView.addObject("conversionBean",result);
-        modelAndView.addObject("conversionBeans",beans);
+
         modelAndView.setViewName("converter");
         return modelAndView;
+    }
+
+    public void setConvBeanRepo(ConversionBeanRepository convBeanRepo) {
+        this.convBeanRepo = convBeanRepo;
+    }
+
+    public void setConversionService(ConverterService conversionService) {
+        this.conversionService = conversionService;
     }
 }
