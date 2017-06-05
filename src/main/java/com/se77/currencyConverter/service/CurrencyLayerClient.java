@@ -1,6 +1,7 @@
 package com.se77.currencyConverter.service;
 
 import com.se77.currencyConverter.domain.CurrencyLayerResponse;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -9,6 +10,7 @@ import java.util.Map;
 /**
  * Created by superernie77 on 05.06.2017.
  */
+@Component
 public class CurrencyLayerClient implements  ExchangeRateService {
 
     private static final String EXCHANGE_URL = "http://apilayer.net/api/live";

@@ -1,6 +1,7 @@
 package com.se77.currencyConverter.service;
 
 import com.se77.currencyConverter.domain.ConversionBean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ConversionServiceImpl implements  ConverterService {
 
+    @Autowired
     private ExchangeRateService exchangeRateService;
 
     @Override
