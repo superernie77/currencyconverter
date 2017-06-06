@@ -32,7 +32,7 @@ public class LoginController {
     public ModelAndView login() {
         //TODO entfernen
         User user = new User();
-        user.setEmail("admin1");
+        user.setEmail("admin1@test.de");
         user.setPassword("1");
         userService.saveUser(user);
 
@@ -62,10 +62,16 @@ public class LoginController {
     @RequestMapping(value = "/registration", method = POST)
     public ModelAndView createNewUser(@Valid User user, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("registration");
+
+        if(bindingResult.hasErrors()){
+            return modelAndView;
+        }
+
         userService.saveUser(user);
         modelAndView.addObject("successMessage", "User has been registered successfully");
         modelAndView.addObject("user", new User());
-        modelAndView.setViewName("registration");
+
         return modelAndView;
     }
 

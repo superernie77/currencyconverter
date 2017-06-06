@@ -14,12 +14,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.annotation.Transient;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "user")
@@ -30,14 +32,19 @@ public class User {
     @Column(name="user_id")
     private int id;
 
+    @Email
+    @NotNull
     private String email;
 
+    @NotNull
     private String password;
 
     private String firstname;
 
     private String lastName;
 
+    @Past
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birthday;
 
     private String streetName;

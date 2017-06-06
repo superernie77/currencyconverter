@@ -27,6 +27,7 @@ public class UserServiceTest {
         User user = new User();
         user.setLastName("Elias");
         user.setFirstname("Ernesto");
+        user.setEmail("test@test.de");
         user.setPassword("testpassword");
 
         userServie.saveUser(user);
