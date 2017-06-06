@@ -3,3 +3,7 @@
 
 # currencyconverter
 Webapp to convert your riches into another currency of your choice
+
+# Demo Application
+A running version of the master branch can be found here:
+https://currency-converter-zoo.herokuapp.com/
