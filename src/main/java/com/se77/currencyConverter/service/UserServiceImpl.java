@@ -33,14 +33,18 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void saveUser(User user) {
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 
-        Role userRole = roleRepository.findByRole("USER");
-        if (userRole == null){
-            userRole = new Role();
-            userRole.setRole("USER");
+        if ( userRepo.findByEmail(user.getEmail()) == null) {
+            user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+            Role userRole = roleRepository.findByRole("USER");
+            if (userRole == null){
+                userRole = new Role();
+                userRole.setRole("USER");
+            }
+            user.setRoles(new HashSet<>(Arrays.asList(userRole)));
+            userRepo.save(user);
+        } else {
+            //TODO error message
         }
-        user.setRoles(new HashSet<>(Arrays.asList(userRole)));
-        userRepo.save(user);
     }
 }

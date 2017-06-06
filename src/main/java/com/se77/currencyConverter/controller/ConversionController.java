@@ -37,12 +37,17 @@ public class ConversionController {
         ModelAndView modelAndView = new ModelAndView();
 
         Page<ConversionBean> conversions = convBeanRepo.findAll(new PageRequest(0, 10));
-        modelAndView.addObject("conversionBeans",conversions);
 
+        List<String> currencies = conversionService.getCurrencies();
+
+        modelAndView.addObject("conversionBeans",conversions);
 
         modelAndView.addObject("conversionBean", new ConversionBean());
 
+        modelAndView.addObject("currencies",currencies);
+
         modelAndView.setViewName("converter");
+
         return modelAndView;
     }
 
@@ -55,9 +60,14 @@ public class ConversionController {
         convBeanRepo.save(result);
 
         Page<ConversionBean> conversions = convBeanRepo.findAll(new PageRequest(0, 10));
+
+        List<String> currencies = conversionService.getCurrencies();
+
         modelAndView.addObject("conversionBeans",conversions);
 
         modelAndView.addObject("conversionBean",result);
+
+        modelAndView.addObject("currencies",currencies);
 
         modelAndView.setViewName("converter");
 

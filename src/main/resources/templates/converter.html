@@ -28,8 +28,9 @@
 
 
                     <div class="col-md-6">
-                        <input type="text" th:field="*{sourceCurrency}" placeholder="Currency to Convert from"
-                               class="form-control"/>
+                        <select class="form-control" th:field="*{sourceCurrency}"  id="dropCurrencies1">
+                            <option th:each="currency : ${currencies}" th:value="${currency}" th:text="${currency}"></option>
+                        </select>
                     </div>
                 </div>
 
@@ -40,8 +41,9 @@
                     </div>
 
                     <div class="col-md-6">
-                        <input type="text" th:field="*{targetCurrency}" placeholder="Currency to Convert to"
-                               class="form-control"/>
+                        <select class="form-control" th:field="*{targetCurrency}"  id="dropCurrencies2">
+                            <option th:each="currency : ${currencies}" th:value="${currency}" th:text="${currency}"></option>
+                        </select>
                     </div>
 
                 </div>
