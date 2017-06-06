@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Date;
+
 /**
  * Created by superernie77 on 05.06.2017.
  */
@@ -26,6 +28,7 @@ public class ConversionServiceImplTest {
         conversionBean.setSourceAmount(42d);
         conversionBean.setSourceCurrency("EUR");
         conversionBean.setTargetCurrency("GBP");
+        conversionBean.setQueryDate(new Date());
 
         service.convert(conversionBean);
 

@@ -18,7 +18,7 @@ public class ConversionServiceImpl implements  ConverterService {
     @Override
     public ConversionBean convert(ConversionBean conversionBean) {
 
-        Double result =  currencylayer.getExchangeRate(conversionBean.getSourceCurrency(),conversionBean.getTargetCurrency(),conversionBean.getSourceAmount());
+        Double result =  currencylayer.getExchangeRate(conversionBean.getSourceCurrency(),conversionBean.getTargetCurrency(),conversionBean.getSourceAmount(), conversionBean.getQueryDate());
 
         conversionBean.setTargetAmount(result);
 

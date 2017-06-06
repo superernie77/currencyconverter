@@ -36,6 +36,4 @@ public class UserServiceTest {
         assertNotEquals(user.getPassword(), "testpassword" );
 
     }
-
-
 }

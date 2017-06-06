@@ -7,6 +7,7 @@ import com.se77.currencyConverter.service.ConverterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.validation.Valid;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -42,7 +44,9 @@ public class ConversionController {
 
         modelAndView.addObject("conversionBeans",conversions);
 
-        modelAndView.addObject("conversionBean", new ConversionBean());
+        ConversionBean conversionBean = new ConversionBean();
+        conversionBean.setQueryDate(new Date());
+        modelAndView.addObject("conversionBean", conversionBean );
 
         modelAndView.addObject("currencies",currencies);
 
@@ -59,7 +63,11 @@ public class ConversionController {
 
         convBeanRepo.save(result);
 
-        Page<ConversionBean> conversions = convBeanRepo.findAll(new PageRequest(0, 10));
+        PageRequest page = new PageRequest(
+                0, 10, Sort.Direction.ASC, "id"
+        );
+
+        Page<ConversionBean> conversions = convBeanRepo.findAll(page);
 
         List<String> currencies = conversionService.getCurrencies();
 

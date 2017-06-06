@@ -2,10 +2,14 @@ package com.se77.currencyConverter.service;
 
 import com.se77.currencyConverter.domain.Currencies;
 import com.se77.currencyConverter.domain.CurrencyLayerResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -16,23 +20,23 @@ import java.util.stream.Collectors;
 @Component
 public class CurrencyLayerClient implements Currencylayer {
 
-    private static final String EXCHANGE_URL = "http://apilayer.net/api/live";
+    private static final String EXCHANGE_URL = "http://apilayer.net/api/historical";
 
     private static final String CURRENCY_URL = "http://apilayer.net/api/list";
 
     private static final String APP_ID = "83fce7f08d1b0c86520438151fab55ca";
 
-    public Double getExchangeRate(String sourceCurrency, String targetCurrency, Double value) {
+    @Autowired
+    private RestTemplate restTemplate;
 
+    public Double getExchangeRate(String sourceCurrency, String targetCurrency, Double value, Date date) {
+
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(EXCHANGE_URL)
-            .queryParam("access_key", APP_ID)
-            .queryParam("from", sourceCurrency)
-            .queryParam("to", targetCurrency)
-            .queryParam("amount", value);
+                .queryParam("access_key", APP_ID)
+                .queryParam("date", format.format(date));
 
-
-        RestTemplate restTemplate = new RestTemplate();
         CurrencyLayerResponse response = restTemplate.getForObject(builder.build().encode().toUri(), CurrencyLayerResponse.class);
 
         Map<String, Double> quotes = response.getQuotes();
@@ -45,13 +49,15 @@ public class CurrencyLayerClient implements Currencylayer {
     }
 
     public List<String> getCurrencies(){
-        RestTemplate restTemplate = new RestTemplate();
-
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(CURRENCY_URL)
                 .queryParam("access_key", APP_ID);
 
         Currencies currencies = restTemplate.getForObject(builder.build().encode().toUri(), Currencies.class);
 
         return currencies.getCurrencies().keySet().stream().sorted( (c1,c2) -> c1.compareTo(c2) ).collect(Collectors.toList());
+    }
+
+    public void setRestTemplate(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
     }
 }

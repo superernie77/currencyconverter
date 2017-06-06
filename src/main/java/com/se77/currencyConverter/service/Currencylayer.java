@@ -1,5 +1,6 @@
 package com.se77.currencyConverter.service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -7,7 +8,7 @@ import java.util.List;
  */
 public interface Currencylayer {
 
-    public Double getExchangeRate(String sourceCurrency, String targetCurrency, Double value);
+    public Double getExchangeRate(String sourceCurrency, String targetCurrency, Double value, Date date);
 
     public List<String> getCurrencies();
 }

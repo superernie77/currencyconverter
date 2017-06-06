@@ -1,5 +1,7 @@
 package com.se77.currencyConverter.domain;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -12,6 +14,7 @@ public class ConversionBean {
     @Column(name = "result_id")
     private int id;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date queryDate;
 
     private String targetCurrency;
@@ -63,7 +66,6 @@ public class ConversionBean {
     }
 
     public int getId() {
-
         return id;
     }
 

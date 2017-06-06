@@ -3,7 +3,9 @@ package com.se77.currencyConverter.service;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.web.client.RestTemplate;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -16,12 +18,14 @@ public class CurrencyLayerClientTest {
     @Before
     public void setup(){
         client = new CurrencyLayerClient();
+
+        client.setRestTemplate(new RestTemplate());
     }
 
     @Test
     public void testGetExchangeRate(){
 
-        double rate = client.getExchangeRate("EUR","GBP", 42d);
+        double rate = client.getExchangeRate("EUR","GBP", 42d, new Date());
 
         Assert.assertTrue(rate > 0);
     }
