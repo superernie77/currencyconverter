@@ -1,6 +1,7 @@
 package com.se77.currencyConverter.domain;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "results")
@@ -8,8 +9,10 @@ public class ConversionBean {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="result_id")
+    @Column(name = "result_id")
     private int id;
+
+    private Date queryDate;
 
     private String targetCurrency;
 
@@ -18,6 +21,14 @@ public class ConversionBean {
     private Double sourceAmount;
 
     private Double targetAmount;
+
+    public Date getQueryDate() {
+        return queryDate;
+    }
+
+    public void setQueryDate(Date queryDate) {
+        this.queryDate = queryDate;
+    }
 
     public String getTargetCurrency() {
         return targetCurrency;

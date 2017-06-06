@@ -7,6 +7,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -33,12 +35,14 @@ public class ConversionControllerTest {
 
     @Test
     public void testConverterModelAndView(){
+        Mockito.when(conBeanRepo.findAll(Mockito.any(PageRequest.class))).thenReturn(Mockito.mock(Page.class));
+
         ModelAndView modelAndView = controller.converter();
 
         // past conversions set
         Assert.assertNotNull(modelAndView.getModel().get("conversionBeans"));
 
-        Mockito.verify(conBeanRepo).findAll();
+        Mockito.verify(conBeanRepo).findAll(Mockito.any(PageRequest.class));
 
         // new conversion is set
         Assert.assertNotNull(modelAndView.getModel().get("conversionBean"));
@@ -50,11 +54,12 @@ public class ConversionControllerTest {
 
         ConversionBean conversionBean = new ConversionBean();
         Mockito.when(conversionService.convert(conversionBean)).thenReturn(conversionBean);
+        Mockito.when(conBeanRepo.findAll(Mockito.any(PageRequest.class))).thenReturn(Mockito.mock(Page.class));
 
         ModelAndView modelAndView = controller.convert(conversionBean);
 
         Mockito.verify(conversionService).convert(conversionBean);
-        Mockito.verify(conBeanRepo).findAll();
+        Mockito.verify(conBeanRepo).findAll(Mockito.any(PageRequest.class));
 
         // new conversion result is set
         Assert.assertNotNull(modelAndView.getModel().get("conversionBean"));

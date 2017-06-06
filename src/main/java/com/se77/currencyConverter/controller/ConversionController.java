@@ -5,6 +5,8 @@ import com.se77.currencyConverter.domain.User;
 import com.se77.currencyConverter.repository.ConversionBeanRepository;
 import com.se77.currencyConverter.service.ConverterService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -14,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.List;
 
 /**
@@ -32,7 +36,7 @@ public class ConversionController {
     public ModelAndView converter(){
         ModelAndView modelAndView = new ModelAndView();
 
-        List<ConversionBean> conversions = convBeanRepo.findAll();
+        Page<ConversionBean> conversions = convBeanRepo.findAll(new PageRequest(0, 10));
         modelAndView.addObject("conversionBeans",conversions);
 
 
@@ -45,16 +49,18 @@ public class ConversionController {
     @RequestMapping(value="/converter", method = RequestMethod.POST)
     public ModelAndView convert(@Valid ConversionBean conversionBean){
         ModelAndView modelAndView = new ModelAndView();
+
         ConversionBean result = conversionService.convert(conversionBean);
 
         convBeanRepo.save(result);
 
-        List<ConversionBean> conversions = convBeanRepo.findAll();
+        Page<ConversionBean> conversions = convBeanRepo.findAll(new PageRequest(0, 10));
         modelAndView.addObject("conversionBeans",conversions);
 
         modelAndView.addObject("conversionBean",result);
 
         modelAndView.setViewName("converter");
+
         return modelAndView;
     }
 
