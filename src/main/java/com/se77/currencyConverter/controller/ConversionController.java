@@ -34,15 +34,21 @@ public class ConversionController {
     @Autowired
     private ConversionBeanRepository convBeanRepo;
 
+    private PageRequest page = new PageRequest(
+            0, 10, Sort.Direction.DESC, "id"
+    );
+
     @RequestMapping(value="/converter", method = RequestMethod.GET)
     public ModelAndView converter(){
         ModelAndView modelAndView = new ModelAndView();
 
-        Page<ConversionBean> conversions = convBeanRepo.findAll(new PageRequest(0, 10));
+        Page<ConversionBean> conversions = convBeanRepo.findAll(page);
 
         List<String> currencies = conversionService.getCurrencies();
 
-        modelAndView.addObject("conversionBeans",conversions);
+        if (conversions.getNumberOfElements() > 0) {
+            modelAndView.addObject("conversions",conversions);
+        }
 
         ConversionBean conversionBean = new ConversionBean();
         conversionBean.setQueryDate(new Date());
@@ -63,19 +69,17 @@ public class ConversionController {
 
         convBeanRepo.save(result);
 
-        PageRequest page = new PageRequest(
-                0, 10, Sort.Direction.ASC, "id"
-        );
-
         Page<ConversionBean> conversions = convBeanRepo.findAll(page);
 
         List<String> currencies = conversionService.getCurrencies();
 
-        modelAndView.addObject("conversionBeans",conversions);
+        modelAndView.addObject("currencies",currencies);
+
+        if (conversions.getNumberOfElements() > 0) {
+            modelAndView.addObject("conversions", conversions);
+        }
 
         modelAndView.addObject("conversionBean",result);
-
-        modelAndView.addObject("currencies",currencies);
 
         modelAndView.setViewName("converter");
 

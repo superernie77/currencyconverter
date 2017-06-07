@@ -49,7 +49,6 @@ public class LoginController {
         User user = new User();
 
         List<String> countries = countryService.getCountries();
-
         modelAndView.addObject("countries", countries);
 
         modelAndView.addObject("user", user);
@@ -63,8 +62,16 @@ public class LoginController {
     public ModelAndView createNewUser(@Valid User user, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("registration");
+        List<String> countries = countryService.getCountries();
+        modelAndView.addObject("countries", countries);
 
         if(bindingResult.hasErrors()){
+            return modelAndView;
+        }
+
+        if (userService.findByEmail(user.getEmail()) != null){
+            modelAndView.addObject("user", user);
+            modelAndView.addObject("errorMessage", "Email address is already taken.");
             return modelAndView;
         }
 

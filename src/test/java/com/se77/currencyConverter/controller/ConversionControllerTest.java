@@ -39,9 +39,6 @@ public class ConversionControllerTest {
 
         ModelAndView modelAndView = controller.converter();
 
-        // past conversions set
-        Assert.assertNotNull(modelAndView.getModel().get("conversionBeans"));
-
         Mockito.verify(conBeanRepo).findAll(Mockito.any(PageRequest.class));
 
         // new conversion is set
@@ -63,9 +60,6 @@ public class ConversionControllerTest {
 
         // new conversion result is set
         Assert.assertNotNull(modelAndView.getModel().get("conversionBean"));
-
-        // past conversions set
-        Assert.assertNotNull(modelAndView.getModel().get("conversionBeans"));
 
     }
 }

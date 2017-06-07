@@ -2,66 +2,73 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Registration Form</title>
+    <title>Currency Converter</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/registration.css}"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-<form th:action="@{/}" method="get">
-    <button class="btn btn-md btn-warning btn-block" type="Submit">Go To Login Page</button>
+<form th:action="@{/logout}" method="get">
+    <button class="btn btn-md btn-warning btn-block" type="Submit">Logout</button>
 </form>
 
 <div class="container">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-8">
             <form autocomplete="off" action="#" th:action="@{/converter}"
                   th:object="${conversionBean}" method="post" class="form-horizontal"
                   role="form">
                 <h3>Currency Conversion</h3>
                 <div class="row">
-                    <div class="col-md-3">
-                        <input type="text" th:field="*{sourceAmount}" placeholder="Amount to Convert"
+                    <div class="col-md-4">
+                        <label class="label label-primary">Amount</label>
+                        <input type="text" th:field="*{sourceAmount}"
                                class="form-control"/>
                     </div>
 
-                    <div class="col-md-3">
-                        <select class="form-control" th:field="*{sourceCurrency}"  id="dropCurrencies1">
-                            <option th:each="currency : ${currencies}" th:value="${currency}" th:text="${currency}"></option>
+                    <div class="col-md-4">
+                        <label class="label label-primary">Source Currency</label>
+                        <select class="form-control" th:field="*{sourceCurrency}" id="dropCurrencies1">
+                            <option th:each="currency : ${currencies}" th:value="${currency}"
+                                    th:text="${currency}"></option>
                         </select>
                     </div>
 
-                    <div class="col-md-3">
+                    <div class="col-md-4">
+                        <label class="label label-primary">Date</label>
                         <input type="date" th:field="*{queryDate}" placeholder="Date"
-                               class="form-control" />
+                               class="form-control"/>
                     </div>
 
-                    <div class="col-md-3">
-                        <select class="form-control" th:field="*{targetCurrency}"  id="dropCurrencies2">
-                            <option th:each="currency : ${currencies}" th:value="${currency}" th:text="${currency}"></option>
+                    <div class="col-md-4">
+                        <label class="label label-primary">Target Currency</label>
+                        <select class="form-control" th:field="*{targetCurrency}" id="dropCurrencies2">
+                            <option th:each="currency : ${currencies}" th:value="${currency}"
+                                    th:text="${currency}"></option>
                         </select>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="label label-primary">Converted Amount</label>
+                        <input type="text" th:field="*{targetAmount}" placeholder="Converted Amount"
+                               class="form-control"/>
                     </div>
                 </div>
 
+                <br/>
+
                 <div class="form-group">
-                    <div class="col-md-12">
+                    <div class="col-md-4">
                         <button type="submit" class="btn btn-primary btn-block">Convert</button>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <div class="col-md-6">
-                        <input type="text" th:field="*{targetAmount}" placeholder="Amount to Convert"
-                               class="form-control"/>
-                    </div>
-
-                </div>
-
             </form>
 
-            <h3>Previous Conversions</h3>
-            <div>
+            <div th:if="${conversions}">
+                <h3>Previous Conversions</h3>
+
                 <table class="table">
                     <tr>
                         <th>Date</th>
@@ -70,7 +77,7 @@
                         <th>Traget Currency</th>
                         <th>Target Amount</th>
                     </tr>
-                    <tr th:each="bean : ${conversionBeans}">
+                    <tr th:each="bean : ${conversions}">
                         <td th:text="${#dates.format(bean.queryDate, 'dd-MMM-yyyy')}">28.2.2017</td>
                         <td th:text="${bean.sourceCurrency}">EUR</td>
                         <td th:text="${#numbers.formatDecimal(bean.sourceAmount, 0, 'COMMA', 2, 'POINT')}">0</td>

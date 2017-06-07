@@ -45,6 +45,8 @@ public class CurrencyLayerClient implements Currencylayer {
 
         Double inTargetCurrency = quotes.get("USD"+targetCurrency) * inUsd;
 
+        inTargetCurrency = Math.round(inTargetCurrency * 100d)/100d;
+
         return inTargetCurrency;
     }
 
