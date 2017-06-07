@@ -30,15 +30,9 @@ public class LoginController {
 
     @RequestMapping(value = {"/", "/login"}, method = GET)
     public ModelAndView login() {
-        //TODO entfernen
-        User user = new User();
-        user.setEmail("admin1@test.de");
-        user.setPassword("1");
-        userService.saveUser(user);
-
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("login");
-        user = new User();
+        User user = new User();
         modelAndView.addObject(user);
         return modelAndView;
     }
