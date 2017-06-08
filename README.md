@@ -16,17 +16,21 @@ You can start the application with the following command:
 ```
 
 # Used Technologies
-The following technologies were used to build this application:
+The following technologies were used to build the web application:
 - Spring Boot
 - Spring MVC
 - Spring Security
-- Spring Data
-- JPA
+- Spring Data-JPA
 - Thymeleaf
 - Jackson
 - Maven
 - Junit / Mockito
 - H2 DB
+
+The following technologies were used for the build pipeline:
+- GitHub
+- Travis CI
+- Heroku
 
 # Demo Application
 A running version of the master branch can be found here:
