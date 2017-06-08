@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/superernie77/currencyconverter.svg?branch=master)](https://travis-ci.org/superernie77/currencyconverter)
 [![volkswagen status](https://auchenberg.github.io/volkswagen/volkswargen_ci.svg?v=1)](https://github.com/auchenberg/volkswagen)
-[![Coverage Status](https://coveralls.io/repos/github/superernie77/currencyconverter/badge.svg?branch=master)](https://coveralls.io/superernie77/currencyconverter/space?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/superernie77/currencyconverter/badge.svg)](https://coveralls.io/github/superernie77/currencyconverter)
 
 # Currency Converter
 A webapp to convert your riches into another currency of your choice!
