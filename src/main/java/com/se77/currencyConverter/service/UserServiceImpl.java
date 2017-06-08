@@ -33,7 +33,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void saveUser(User user) {
-
         if ( userRepo.findByEmail(user.getEmail()) == null) {
             user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
             Role userRole = roleRepository.findByRole("USER");
@@ -43,8 +42,6 @@ public class UserServiceImpl implements UserService {
             }
             user.setRoles(new HashSet<>(Arrays.asList(userRole)));
             userRepo.save(user);
-        } else {
-            //TODO error message
         }
     }
 }
