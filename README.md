@@ -9,7 +9,7 @@ You will need to have Maven and Java 8 installed on your machine. Check out the 
 ```
   mvn clean verify
 ```
-This will create an executable jar file in the target directory of the chackout folder.
+This will create an executable jar file in the target directory of your checkout folder.
 You can start the application with the following command:
 ```
   java -jar currencyConverter-0.0.1-SNAPSHOT.jar
