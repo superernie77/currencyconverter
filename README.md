@@ -32,8 +32,8 @@ The following technologies were used for the build pipeline:
 - GitHub
 - Travis CI
 - Heroku
-- Slack
 - Coveralls / Jacoco
+- Slack ( join the team currency-converter.slack.com )
 
 # Demo Application
 A running version of the master branch can be found here:
