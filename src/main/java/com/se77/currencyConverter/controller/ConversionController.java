@@ -41,19 +41,15 @@ public class ConversionController {
     public ModelAndView init(){
         ModelAndView modelAndView = new ModelAndView();
 
-        Page<Conversion> conversions = convBeanRepo.findAll(page);
-
-        List<String> currencies = conversionService.getCurrencies();
-
-        if (conversions.getNumberOfElements() > 0) {
-            modelAndView.addObject("conversions",conversions);
-        }
+        addConversionHistory(modelAndView);
 
         Conversion conversion = new Conversion();
         conversion.setQueryDate(new Date()); // default date is today
         conversion.setSourceAmount(0d);
         modelAndView.addObject("conversion", conversion);
 
+        // currency selection
+        List<String> currencies = conversionService.getCurrencies();
         modelAndView.addObject("currencies",currencies);
 
         modelAndView.setViewName("converter");
@@ -74,15 +70,10 @@ public class ConversionController {
         List<String> currencies = conversionService.getCurrencies();
         modelAndView.addObject("currencies",currencies);
 
-
-
         // return if there are validation errors
         if(bindingResult.hasErrors()){
             // find past conversions
-            Page<Conversion> conversions = convBeanRepo.findAll(page);
-            if (conversions.getNumberOfElements() > 0) {
-                modelAndView.addObject("conversions", conversions);
-            }
+            addConversionHistory(modelAndView);
             return modelAndView;
         }
 
@@ -91,13 +82,16 @@ public class ConversionController {
         convBeanRepo.save(result);
         modelAndView.addObject("conversion",result);
 
-        // find past conversions which includes the one created above
+        addConversionHistory(modelAndView);
+
+        return modelAndView;
+    }
+
+    private void addConversionHistory(ModelAndView modelAndView){
         Page<Conversion> conversions = convBeanRepo.findAll(page);
         if (conversions.getNumberOfElements() > 0) {
             modelAndView.addObject("conversions", conversions);
         }
-
-        return modelAndView;
     }
 
     public void setConvBeanRepo(ConversionRepository convBeanRepo) {
