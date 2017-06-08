@@ -51,11 +51,14 @@ public class ConversionControllerTest {
     }
 
     @Test
-    public void testConvert(){
+    public void testConvertPositive(){
 
         Conversion conversion = new Conversion();
         conversion.setTargetAmount(42d);
+        // mock conversion and previous results
         Mockito.when(conversionService.convert(conversion)).thenReturn(conversion);
+
+        // mock history
         Mockito.when(conBeanRepo.findAll(Mockito.any(PageRequest.class))).thenReturn(Mockito.mock(Page.class));
 
         ModelAndView modelAndView = controller.convert(conversion, Mockito.mock(BindingResult.class));
@@ -70,4 +73,26 @@ public class ConversionControllerTest {
         Conversion conv = (Conversion)modelAndView.getModel().get("conversion");
         Assert.assertTrue(conv.getTargetAmount() == 42d);
     }
+
+    @Test
+    public void testConvertBindingErrors(){
+        Conversion conversion = new Conversion();
+        conversion.setTargetAmount(42d);
+
+        // mock history
+        Mockito.when(conBeanRepo.findAll(Mockito.any(PageRequest.class))).thenReturn(Mockito.mock(Page.class));
+
+        // mock binding errors
+        BindingResult bindingResult = Mockito.mock(BindingResult.class);
+        Mockito.when(bindingResult.hasErrors()).thenReturn(true);
+
+        ModelAndView modelAndView = controller.convert(conversion, bindingResult);
+
+        // conversion was NOT executed
+        Mockito.verify(conversionService, Mockito.never()).convert(conversion);
+
+        // history set
+        Mockito.verify(conBeanRepo).findAll(Mockito.any(PageRequest.class));
+    }
+
 }
