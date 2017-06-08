@@ -41,6 +41,8 @@
                         <label class="label label-primary">Date</label>
                         <input type="date" th:field="*{queryDate}" placeholder="Date"
                                class="form-control"/>
+                        <label th:if="${#fields.hasErrors('queryDate')}" th:errors="*{queryDate}"
+                               class="alert alert-danger"></label>
                     </div>
 
                     <div class="col-md-4">

@@ -5,6 +5,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 import java.util.Date;
 
 @Entity
@@ -17,6 +18,8 @@ public class Conversion {
     private int id;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+
+    @Past
     private Date queryDate;
 
     private String targetCurrency;
