@@ -1,4 +1,4 @@
-package com.se77.currencyConverter.domain;
+package com.se77.currencyConverter.domain.currencylayer;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

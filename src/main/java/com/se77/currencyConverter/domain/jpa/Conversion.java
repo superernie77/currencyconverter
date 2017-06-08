@@ -1,4 +1,4 @@
-package com.se77.currencyConverter.domain;
+package com.se77.currencyConverter.domain.jpa;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -7,7 +7,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "results")
-public class ConversionBean {
+public class Conversion {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

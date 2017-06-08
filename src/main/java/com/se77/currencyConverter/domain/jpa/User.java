@@ -1,6 +1,5 @@
-package com.se77.currencyConverter.domain;
+package com.se77.currencyConverter.domain.jpa;
 
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.Set;
 
@@ -17,10 +16,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
+import com.se77.currencyConverter.domain.jpa.Role;
 import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotEmpty;
-import org.springframework.data.annotation.Transient;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity

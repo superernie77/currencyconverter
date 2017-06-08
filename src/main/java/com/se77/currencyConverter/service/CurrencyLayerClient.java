@@ -1,13 +1,12 @@
 package com.se77.currencyConverter.service;
 
-import com.se77.currencyConverter.domain.Currencies;
-import com.se77.currencyConverter.domain.CurrencyLayerResponse;
+import com.se77.currencyConverter.domain.currencylayer.Currencies;
+import com.se77.currencyConverter.domain.currencylayer.CurrencyLayerResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;

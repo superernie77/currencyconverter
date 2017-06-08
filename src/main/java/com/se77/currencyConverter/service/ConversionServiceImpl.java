@@ -1,6 +1,6 @@
 package com.se77.currencyConverter.service;
 
-import com.se77.currencyConverter.domain.ConversionBean;
+import com.se77.currencyConverter.domain.jpa.Conversion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -16,13 +16,13 @@ public class ConversionServiceImpl implements  ConverterService {
     private Currencylayer currencylayer;
 
     @Override
-    public ConversionBean convert(ConversionBean conversionBean) {
+    public Conversion convert(Conversion conversion) {
 
-        Double result =  currencylayer.getExchangeRate(conversionBean.getSourceCurrency(),conversionBean.getTargetCurrency(),conversionBean.getSourceAmount(), conversionBean.getQueryDate());
+        Double result =  currencylayer.getExchangeRate(conversion.getSourceCurrency(), conversion.getTargetCurrency(), conversion.getSourceAmount(), conversion.getQueryDate());
 
-        conversionBean.setTargetAmount(result);
+        conversion.setTargetAmount(result);
 
-        return conversionBean;
+        return conversion;
     }
 
     @Override

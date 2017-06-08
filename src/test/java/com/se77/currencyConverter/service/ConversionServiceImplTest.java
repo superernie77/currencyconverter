@@ -1,6 +1,6 @@
 package com.se77.currencyConverter.service;
 
-import com.se77.currencyConverter.domain.ConversionBean;
+import com.se77.currencyConverter.domain.jpa.Conversion;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,15 +23,16 @@ public class ConversionServiceImplTest {
     @Test
     public void testConversion(){
 
-        ConversionBean conversionBean = new ConversionBean();
+        Conversion conversion = new Conversion();
 
-        conversionBean.setSourceAmount(42d);
-        conversionBean.setSourceCurrency("EUR");
-        conversionBean.setTargetCurrency("GBP");
-        conversionBean.setQueryDate(new Date());
+        conversion.setSourceAmount(42d);
+        conversion.setSourceCurrency("EUR");
+        conversion.setTargetCurrency("GBP");
+        conversion.setQueryDate(new Date());
 
-        service.convert(conversionBean);
+        service.convert(conversion);
 
-        Assert.assertTrue(conversionBean.getTargetAmount() > 0);
+        // amount has been converted to target currency.
+        Assert.assertTrue(conversion.getTargetAmount() > 0);
     }
 }

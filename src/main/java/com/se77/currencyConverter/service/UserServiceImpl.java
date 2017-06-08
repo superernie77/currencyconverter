@@ -1,7 +1,7 @@
 package com.se77.currencyConverter.service;
 
-import com.se77.currencyConverter.domain.Role;
-import com.se77.currencyConverter.domain.User;
+import com.se77.currencyConverter.domain.jpa.Role;
+import com.se77.currencyConverter.domain.jpa.User;
 import com.se77.currencyConverter.repository.RoleRepository;
 import com.se77.currencyConverter.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

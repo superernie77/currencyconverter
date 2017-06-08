@@ -2,7 +2,7 @@ package com.se77.currencyConverter.repository;
 
 import static org.junit.Assert.*;
 
-import com.se77.currencyConverter.domain.User;
+import com.se77.currencyConverter.domain.jpa.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

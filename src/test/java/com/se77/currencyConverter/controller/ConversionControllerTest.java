@@ -1,7 +1,7 @@
 package com.se77.currencyConverter.controller;
 
-import com.se77.currencyConverter.domain.ConversionBean;
-import com.se77.currencyConverter.repository.ConversionBeanRepository;
+import com.se77.currencyConverter.domain.jpa.Conversion;
+import com.se77.currencyConverter.repository.ConversionRepository;
 import com.se77.currencyConverter.service.ConverterService;
 import org.junit.Assert;
 import org.junit.Before;
@@ -12,13 +12,14 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
+ * Tests the ConversionController
  * Created by superernie77 on 05.06.2017.
  */
 public class ConversionControllerTest {
 
     private ConversionController controller;
 
-    private ConversionBeanRepository conBeanRepo;
+    private ConversionRepository conBeanRepo;
 
     private ConverterService conversionService;
 
@@ -26,7 +27,7 @@ public class ConversionControllerTest {
     public void setup(){
         controller = new ConversionController();
 
-        conBeanRepo =  Mockito.mock(ConversionBeanRepository.class);
+        conBeanRepo =  Mockito.mock(ConversionRepository.class);
         conversionService = Mockito.mock(ConverterService.class);
 
         controller.setConvBeanRepo(conBeanRepo);
@@ -34,32 +35,38 @@ public class ConversionControllerTest {
     }
 
     @Test
-    public void testConverterModelAndView(){
+    public void testInitConvertCurrency(){
         Mockito.when(conBeanRepo.findAll(Mockito.any(PageRequest.class))).thenReturn(Mockito.mock(Page.class));
 
-        ModelAndView modelAndView = controller.converter();
+        ModelAndView modelAndView = controller.init();
 
+        // history was queried
         Mockito.verify(conBeanRepo).findAll(Mockito.any(PageRequest.class));
 
-        // new conversion is set
-        Assert.assertNotNull(modelAndView.getModel().get("conversionBean"));
+        // new conversion bean is set for next conversion
+        Conversion conv = (Conversion)modelAndView.getModel().get("conversion");
+        Assert.assertNull(conv.getTargetAmount()); // no result set yet
 
     }
 
     @Test
-    public void testConvertModelAndView(){
+    public void testConvert(){
 
-        ConversionBean conversionBean = new ConversionBean();
-        Mockito.when(conversionService.convert(conversionBean)).thenReturn(conversionBean);
+        Conversion conversion = new Conversion();
+        conversion.setTargetAmount(42d);
+        Mockito.when(conversionService.convert(conversion)).thenReturn(conversion);
         Mockito.when(conBeanRepo.findAll(Mockito.any(PageRequest.class))).thenReturn(Mockito.mock(Page.class));
 
-        ModelAndView modelAndView = controller.convert(conversionBean);
+        ModelAndView modelAndView = controller.convert(conversion);
 
-        Mockito.verify(conversionService).convert(conversionBean);
+        // conversion was executed
+        Mockito.verify(conversionService).convert(conversion);
+
+        // history set
         Mockito.verify(conBeanRepo).findAll(Mockito.any(PageRequest.class));
 
         // new conversion result is set
-        Assert.assertNotNull(modelAndView.getModel().get("conversionBean"));
-
+        Conversion conv = (Conversion)modelAndView.getModel().get("conversion");
+        Assert.assertTrue(conv.getTargetAmount() == 42d);
     }
 }
