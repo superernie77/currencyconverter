@@ -15,6 +15,19 @@ You can start the application with the following command:
   java -jar currencyConverter-0.0.1-SNAPSHOT.jar
 ```
 
+# Used Technologies
+The following technologies were used to build this application:
+- Spring Boot
+- Spring MVC
+- Spring Security
+- Spring Data
+- JPA
+- Thymeleaf
+- Jackson
+- Maven
+- Junit / Mockito
+- H2 DB
+
 # Demo Application
 A running version of the master branch can be found here:
 https://currency-converter-zoo.herokuapp.com/
