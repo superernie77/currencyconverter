@@ -10,14 +10,14 @@ import java.util.List;
 public interface Currencylayer {
 
     /**
-     * Calculates an value from a source currency to a target currency for a certain date.
+     * Calculates a value from a source currency to a target currency for a certain date.
      * @param sourceCurrency currency of the value
      * @param targetCurrency currency to convert to
      * @param value amount in source currency
      * @param date date of the exchange rate
      * @return
      */
-    public Double getExchangeRate(String sourceCurrency, String targetCurrency, Double value, Date date);
+    public Double getExchangeAmount(String sourceCurrency, String targetCurrency, Double value, Date date);
 
     /**
      * Returns a list of all supported currencies.

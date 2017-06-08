@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 /**
+ * Service to calculate amounts between currencies.
  * Created by superernie77 on 01.06.2017.
  */
 @Component
@@ -18,7 +19,7 @@ public class ConversionServiceImpl implements  ConverterService {
     @Override
     public Conversion convert(Conversion conversion) {
 
-        Double result =  currencylayer.getExchangeRate(conversion.getSourceCurrency(), conversion.getTargetCurrency(), conversion.getSourceAmount(), conversion.getQueryDate());
+        Double result =  currencylayer.getExchangeAmount(conversion.getSourceCurrency(), conversion.getTargetCurrency(), conversion.getSourceAmount(), conversion.getQueryDate());
 
         conversion.setTargetAmount(result);
 

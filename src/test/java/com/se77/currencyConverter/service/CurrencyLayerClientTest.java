@@ -25,7 +25,7 @@ public class CurrencyLayerClientTest {
     @Test
     public void testGetExchangeRate(){
 
-        double rate = client.getExchangeRate("EUR","GBP", 42d, new Date());
+        double rate = client.getExchangeAmount("EUR","GBP", 42d, new Date());
 
         Assert.assertTrue(rate > 0);
     }

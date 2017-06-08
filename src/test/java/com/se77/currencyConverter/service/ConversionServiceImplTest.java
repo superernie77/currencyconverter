@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by superernie77 on 05.06.2017.
@@ -19,6 +20,14 @@ public class ConversionServiceImplTest {
 
     @Autowired
     private ConverterService service;
+
+    @Test
+    public void testCurrencies(){
+        List<String>  currencies = service.getCurrencies();
+
+        // list with currencies has been created
+        Assert.assertTrue(currencies.size() > 0);
+    }
 
     @Test
     public void testConversion(){

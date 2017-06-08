@@ -7,8 +7,11 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
+/**
+ * Configuration for general Spring beans.
+ */
 @Configuration
-public class WebMvcConfig extends WebMvcConfigurerAdapter {
+public class BeanConfig extends WebMvcConfigurerAdapter {
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {

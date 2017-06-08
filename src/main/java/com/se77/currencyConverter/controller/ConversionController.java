@@ -34,8 +34,7 @@ public class ConversionController {
     );
 
     /**
-     *
-     * @return
+     * Init-method for the main converter screen
      */
     @RequestMapping(value="/converter", method = RequestMethod.GET)
     public ModelAndView init(){
@@ -60,6 +59,10 @@ public class ConversionController {
         return modelAndView;
     }
 
+    /**
+     * Processes the conversion request.
+     * @param conversion conversion parameters
+     */
     @RequestMapping(value="/converter", method = RequestMethod.POST)
     public ModelAndView convert(@Valid Conversion conversion){
         ModelAndView modelAndView = new ModelAndView();
