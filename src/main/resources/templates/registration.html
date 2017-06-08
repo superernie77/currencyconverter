@@ -25,7 +25,7 @@
                         <input type="text" th:field="*{email}" placeholder="Email"
                                class="form-control"/> <label
                             th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
-                            class="validation-message"></label>
+                            class="alert alert-danger"></label>
                     </div>
                 </div>
                 <div class="form-group">
@@ -34,15 +34,15 @@
                                placeholder="Password" class="form-control"/>
                         <label
                             th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
-                            class="validation-message"></label>
+                            class="alert alert-danger"></label>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-9">
-                        <input type="text" th:field="*{name}" placeholder="Name"
+                        <input type="text" th:field="*{firstName}" placeholder="Name"
                                class="form-control"/>
-                        <label th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
-                               class="validation-message"></label>
+                        <label th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"
+                               class="alert alert-danger"></label>
                     </div>
                 </div>
 

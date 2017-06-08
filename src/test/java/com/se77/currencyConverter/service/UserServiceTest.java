@@ -31,7 +31,7 @@ public class UserServiceTest {
 
         User user = new User();
         user.setLastName("Elias");
-        user.setFirstname("Ernesto");
+        user.setFirstName("Ernesto");
         user.setCityName("Freilassing");
         user.setZipcode("12345");
         user.setStreetName("Hauptstr. 5");
@@ -51,7 +51,7 @@ public class UserServiceTest {
 
         // data es loaded/saved successfully
         Assert.assertEquals(user.getLastName(),"Elias" );
-        Assert.assertEquals(user.getFirstname(),"Ernesto" );
+        Assert.assertEquals(user.getFirstName(),"Ernesto" );
         Assert.assertEquals(user.getEmail(),"test@test.de" );
     }
 }

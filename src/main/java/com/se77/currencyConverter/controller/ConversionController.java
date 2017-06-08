@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -50,6 +51,7 @@ public class ConversionController {
 
         Conversion conversion = new Conversion();
         conversion.setQueryDate(new Date()); // default date is today
+        conversion.setSourceAmount(0d);
         modelAndView.addObject("conversion", conversion);
 
         modelAndView.addObject("currencies",currencies);
@@ -64,26 +66,36 @@ public class ConversionController {
      * @param conversion conversion parameters
      */
     @RequestMapping(value="/converter", method = RequestMethod.POST)
-    public ModelAndView convert(@Valid Conversion conversion){
+    public ModelAndView convert(@Valid Conversion conversion, BindingResult bindingResult){
         ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("converter");
 
-        Conversion result = conversionService.convert(conversion);
-
-        convBeanRepo.save(result);
-
-        Page<Conversion> conversions = convBeanRepo.findAll(page);
-
+        // populate currency list
         List<String> currencies = conversionService.getCurrencies();
-
         modelAndView.addObject("currencies",currencies);
 
+
+
+        // return if there are validation errors
+        if(bindingResult.hasErrors()){
+            // find past conversions
+            Page<Conversion> conversions = convBeanRepo.findAll(page);
+            if (conversions.getNumberOfElements() > 0) {
+                modelAndView.addObject("conversions", conversions);
+            }
+            return modelAndView;
+        }
+
+        // perform the conversion
+        Conversion result = conversionService.convert(conversion);
+        convBeanRepo.save(result);
+        modelAndView.addObject("conversion",result);
+
+        // find past conversions which includes the one created above
+        Page<Conversion> conversions = convBeanRepo.findAll(page);
         if (conversions.getNumberOfElements() > 0) {
             modelAndView.addObject("conversions", conversions);
         }
-
-        modelAndView.addObject("conversion",result);
-
-        modelAndView.setViewName("converter");
 
         return modelAndView;
     }

@@ -1,8 +1,10 @@
 package com.se77.currencyConverter.domain.jpa;
 
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
@@ -21,6 +23,7 @@ public class Conversion {
 
     private String sourceCurrency;
 
+    @NotNull
     private Double sourceAmount;
 
     private Double targetAmount;

@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.mockito.Mockito;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -57,7 +58,7 @@ public class ConversionControllerTest {
         Mockito.when(conversionService.convert(conversion)).thenReturn(conversion);
         Mockito.when(conBeanRepo.findAll(Mockito.any(PageRequest.class))).thenReturn(Mockito.mock(Page.class));
 
-        ModelAndView modelAndView = controller.convert(conversion);
+        ModelAndView modelAndView = controller.convert(conversion, Mockito.mock(BindingResult.class));
 
         // conversion was executed
         Mockito.verify(conversionService).convert(conversion);

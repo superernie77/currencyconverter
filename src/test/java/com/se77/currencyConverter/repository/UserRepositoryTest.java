@@ -27,7 +27,7 @@ public class UserRepositoryTest {
 
         User user = new User();
         user.setLastName("Elias");
-        user.setFirstname("Ernesto");
+        user.setFirstName("Ernesto");
         user.setBirthday(new Date());
         user.setCityName("Freilassing");
         user.setCountryName("Germany");

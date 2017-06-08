@@ -18,6 +18,7 @@ import javax.validation.constraints.Past;
 
 import com.se77.currencyConverter.domain.jpa.Role;
 import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -30,13 +31,13 @@ public class User {
     private int id;
 
     @Email
-    @NotNull
+    @NotEmpty
     private String email;
 
-    @NotNull
+    @NotEmpty
     private String password;
 
-    private String firstname;
+    private String firstName;
 
     private String lastName;
 
@@ -64,12 +65,12 @@ public class User {
         this.roles = roles;
     }
 
-    public String getFirstname() {
-        return firstname;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
+    public void setFirstName(String firstname) {
+        this.firstName = firstname;
     }
 
     public String getStreetName() {

@@ -25,6 +25,8 @@
                         <label class="label label-primary">Amount</label>
                         <input type="text" th:field="*{sourceAmount}"
                                class="form-control"/>
+                        <label th:if="${#fields.hasErrors('sourceAmount')}" th:errors="*{sourceAmount}"
+                                class="alert alert-danger"></label>
                     </div>
 
                     <div class="col-md-4">
@@ -42,17 +44,17 @@
                     </div>
 
                     <div class="col-md-4">
+                        <label class="label label-primary">Converted Amount</label>
+                        <input type="text" th:field="*{targetAmount}" placeholder="Converted Amount"
+                               class="form-control"/>
+                    </div>
+
+                    <div class="col-md-4">
                         <label class="label label-primary">Target Currency</label>
                         <select class="form-control" th:field="*{targetCurrency}" id="dropCurrencies2">
                             <option th:each="currency : ${currencies}" th:value="${currency}"
                                     th:text="${currency}"></option>
                         </select>
-                    </div>
-
-                    <div class="col-md-4">
-                        <label class="label label-primary">Converted Amount</label>
-                        <input type="text" th:field="*{targetAmount}" placeholder="Converted Amount"
-                               class="form-control"/>
                     </div>
                 </div>
 
@@ -71,18 +73,18 @@
 
                 <table class="table">
                     <tr>
-                        <th>Date</th>
                         <th>Source Currency</th>
                         <th>Source Amount</th>
                         <th>Traget Currency</th>
                         <th>Target Amount</th>
+                        <th>Date</th>
                     </tr>
                     <tr th:each="bean : ${conversions}">
-                        <td th:text="${#dates.format(bean.queryDate, 'dd-MMM-yyyy')}">28.2.2017</td>
                         <td th:text="${bean.sourceCurrency}">EUR</td>
                         <td th:text="${#numbers.formatDecimal(bean.sourceAmount, 0, 'COMMA', 2, 'POINT')}">0</td>
                         <td th:text="${bean.targetCurrency}">USD</td>
                         <td th:text="${#numbers.formatDecimal(bean.targetAmount, 0, 'COMMA', 2, 'POINT')}">0</td>
+                        <td th:text="${#dates.format(bean.queryDate, 'dd-MMM-yyyy')}">28.2.2017</td>
                     </tr>
                 </table>
             </div>
