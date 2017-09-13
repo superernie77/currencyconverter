@@ -18,7 +18,6 @@ public class Conversion {
     private int id;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-
     @Past
     private Date queryDate;
 
