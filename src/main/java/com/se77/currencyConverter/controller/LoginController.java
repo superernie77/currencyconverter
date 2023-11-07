@@ -2,7 +2,6 @@ package com.se77.currencyConverter.controller;
 
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
-import javax.validation.Valid;
 
 import com.se77.currencyConverter.domain.jpa.User;
 import com.se77.currencyConverter.service.CountryService;
@@ -73,7 +72,7 @@ public class LoginController {
      * @return
      */
     @RequestMapping(value = "/registration", method = POST)
-    public ModelAndView createNewUser(@Valid User user, BindingResult bindingResult) {
+    public ModelAndView createNewUser(User user, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("registration");
 

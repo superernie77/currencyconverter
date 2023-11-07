@@ -4,16 +4,13 @@ import com.se77.currencyConverter.domain.jpa.Conversion;
 import com.se77.currencyConverter.repository.ConversionRepository;
 import com.se77.currencyConverter.service.ConverterService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.validation.Valid;
 import java.util.Date;
 import java.util.List;
 
@@ -30,9 +27,6 @@ public class ConversionController {
     @Autowired
     private ConversionRepository convBeanRepo;
 
-    private PageRequest page = new PageRequest(
-            0, 10, Sort.Direction.DESC, "id"
-    );
 
     /**
      * Init-method for the main converter screen
@@ -62,7 +56,7 @@ public class ConversionController {
      * @param conversion conversion parameters
      */
     @RequestMapping(value="/converter", method = RequestMethod.POST)
-    public ModelAndView convert(@Valid Conversion conversion, BindingResult bindingResult){
+    public ModelAndView convert(@Validated Conversion conversion, BindingResult bindingResult){
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("converter");
 
@@ -88,10 +82,9 @@ public class ConversionController {
     }
 
     private void addConversionHistory(ModelAndView modelAndView){
-        Page<Conversion> conversions = convBeanRepo.findAll(page);
-        if (conversions.getNumberOfElements() > 0) {
-            modelAndView.addObject("conversions", conversions);
-        }
+        Iterable<Conversion> conversions = convBeanRepo.findAll();
+        modelAndView.addObject("conversions", conversions);
+        
     }
 
     public void setConvBeanRepo(ConversionRepository convBeanRepo) {

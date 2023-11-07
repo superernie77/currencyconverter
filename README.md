@@ -35,6 +35,3 @@ The following technologies were used for the build pipeline:
 - Coveralls / Jacoco
 - Slack ( currency-converter.slack.com )
 
-# Demo Application
-A running version of the master branch can be found here:
-https://currency-converter-zoo.herokuapp.com/

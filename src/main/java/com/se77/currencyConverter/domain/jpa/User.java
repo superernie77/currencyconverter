@@ -3,22 +3,18 @@ package com.se77.currencyConverter.domain.jpa;
 import java.util.Date;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
 
-import com.se77.currencyConverter.domain.jpa.Role;
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotEmpty;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Table;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -30,18 +26,14 @@ public class User {
     @Column(name="user_id")
     private int id;
 
-    @Email
-    @NotEmpty
     private String email;
 
-    @NotEmpty
     private String password;
 
     private String firstName;
 
     private String lastName;
 
-    @Past
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birthday;
 

@@ -1,11 +1,14 @@
 package com.se77.currencyConverter.domain.jpa;
 
-import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
 import java.util.Date;
 
 @Entity
@@ -18,14 +21,12 @@ public class Conversion {
     private int id;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Past
     private Date queryDate;
 
     private String targetCurrency;
 
     private String sourceCurrency;
 
-    @NotNull
     private Double sourceAmount;
 
     private Double targetAmount;
