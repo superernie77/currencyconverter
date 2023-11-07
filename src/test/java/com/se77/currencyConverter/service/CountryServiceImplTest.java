@@ -1,10 +1,11 @@
 package com.se77.currencyConverter.service;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests the country service implementation.
@@ -14,7 +15,7 @@ public class CountryServiceImplTest {
 
     private CountryServiceImpl countryService;
 
-    @Before
+    @BeforeEach
     public void setup(){
         countryService = new CountryServiceImpl();
     }
@@ -25,7 +26,7 @@ public class CountryServiceImplTest {
         List<String> countries = countryService.getCountries();
 
         // there should be around 250 countries in the list. exact number might change with different JVMs
-        Assert.assertTrue(countries.size() > 0 );
+        assertTrue(countries.size() > 0 );
 
     }
 }

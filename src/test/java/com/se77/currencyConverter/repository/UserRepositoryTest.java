@@ -1,20 +1,18 @@
 package com.se77.currencyConverter.repository;
 
-import static org.junit.Assert.*;
-
 import com.se77.currencyConverter.domain.jpa.User;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.Date;
 
 /**
  * Created by superernie77 on 31.05.2017.
  */
-@RunWith(SpringRunner.class)
 @SpringBootTest
 public class UserRepositoryTest {
 

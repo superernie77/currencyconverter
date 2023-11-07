@@ -3,12 +3,15 @@ package com.se77.currencyConverter.controller;
 import com.se77.currencyConverter.domain.jpa.Conversion;
 import com.se77.currencyConverter.repository.ConversionRepository;
 import com.se77.currencyConverter.service.ConverterService;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import com.se77.currencyConverter.controller.ConversionController;
+
+import static org.junit.jupiter.api.Assertions.assertNull;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -24,7 +27,7 @@ public class ConversionControllerTest {
 
     private ConverterService conversionService;
 
-    @Before
+    @BeforeEach
     public void setup(){
         controller = new ConversionController();
 
@@ -37,16 +40,16 @@ public class ConversionControllerTest {
 
     @Test
     public void testInitConvertCurrency(){
-        Mockito.when(conBeanRepo.findAll(Mockito.any(PageRequest.class))).thenReturn(Mockito.mock(Page.class));
+        Mockito.when(conBeanRepo.findAll()).thenReturn(Mockito.mock(Page.class));
 
         ModelAndView modelAndView = controller.init();
 
         // history was queried
-        Mockito.verify(conBeanRepo).findAll(Mockito.any(PageRequest.class));
+        Mockito.verify(conBeanRepo).findAll();
 
         // new conversion bean is set for next conversion
         Conversion conv = (Conversion)modelAndView.getModel().get("conversion");
-        Assert.assertNull(conv.getTargetAmount()); // no result set yet
+        assertNull(conv.getTargetAmount()); // no result set yet
 
     }
 
@@ -59,7 +62,7 @@ public class ConversionControllerTest {
         Mockito.when(conversionService.convert(conversion)).thenReturn(conversion);
 
         // mock history
-        Mockito.when(conBeanRepo.findAll(Mockito.any(PageRequest.class))).thenReturn(Mockito.mock(Page.class));
+        Mockito.when(conBeanRepo.findAll()).thenReturn(Mockito.mock(Page.class));
 
         ModelAndView modelAndView = controller.convert(conversion, Mockito.mock(BindingResult.class));
 
@@ -67,11 +70,11 @@ public class ConversionControllerTest {
         Mockito.verify(conversionService).convert(conversion);
 
         // history set
-        Mockito.verify(conBeanRepo).findAll(Mockito.any(PageRequest.class));
+        Mockito.verify(conBeanRepo).findAll();
 
         // new conversion result is set
         Conversion conv = (Conversion)modelAndView.getModel().get("conversion");
-        Assert.assertTrue(conv.getTargetAmount() == 42d);
+        Assertions.assertTrue(conv.getTargetAmount() == 42d);
     }
 
     @Test
@@ -80,7 +83,7 @@ public class ConversionControllerTest {
         conversion.setTargetAmount(42d);
 
         // mock history
-        Mockito.when(conBeanRepo.findAll(Mockito.any(PageRequest.class))).thenReturn(Mockito.mock(Page.class));
+        Mockito.when(conBeanRepo.findAll()).thenReturn(Mockito.mock(Page.class));
 
         // mock binding errors
         BindingResult bindingResult = Mockito.mock(BindingResult.class);
@@ -92,7 +95,7 @@ public class ConversionControllerTest {
         Mockito.verify(conversionService, Mockito.never()).convert(conversion);
 
         // history set
-        Mockito.verify(conBeanRepo).findAll(Mockito.any(PageRequest.class));
+        Mockito.verify(conBeanRepo).findAll();
     }
 
 }

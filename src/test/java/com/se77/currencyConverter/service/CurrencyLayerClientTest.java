@@ -1,9 +1,10 @@
 package com.se77.currencyConverter.service;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.web.client.RestTemplate;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Date;
 import java.util.List;
@@ -15,7 +16,7 @@ public class CurrencyLayerClientTest {
 
     private CurrencyLayerClient client;
 
-    @Before
+    @BeforeEach
     public void setup(){
         client = new CurrencyLayerClient();
 
@@ -27,7 +28,7 @@ public class CurrencyLayerClientTest {
 
         double rate = client.getExchangeAmount("EUR","GBP", 42d, new Date());
 
-        Assert.assertTrue(rate > 0);
+        assertTrue(rate > 0);
     }
 
     @Test
@@ -36,6 +37,6 @@ public class CurrencyLayerClientTest {
         List<String> currencies = client.getCurrencies();
 
         // all 169 supported currencies are listed
-        Assert.assertTrue(currencies.size() > 0);
+        assertTrue(currencies.size() > 0);
     }
 }

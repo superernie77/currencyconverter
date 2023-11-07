@@ -12,6 +12,8 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.provisioning.JdbcUserDetailsManager;
+import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
@@ -25,32 +27,30 @@ public class SecurityConfig {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @Autowired
-    private DataSource dataSource;
-
     private static final String usersQuery = "select email as principal , password as credentials, true from user where email=?";
 
     private static final String rolesQuery = "select u.email, r.role from user u inner join user_role ur on(u.user_id=ur.user_id) inner join role r on(ur.role_id=r.role_id) where u.email=?";
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth)
-            throws Exception {
-        auth.
-                jdbcAuthentication()
-                .usersByUsernameQuery(usersQuery)
-                .authoritiesByUsernameQuery(rolesQuery)
-                .dataSource(dataSource)
-                .passwordEncoder(bCryptPasswordEncoder);
+    @Bean
+    public UserDetailsManager users(DataSource dataSource) {
+       
+        JdbcUserDetailsManager users = new JdbcUserDetailsManager(dataSource);
+        users.setUsersByUsernameQuery(usersQuery);
+        users.setAuthoritiesByUsernameQuery(rolesQuery);
+        
+        return users;
     }
+    
+ 
     
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     	   http.
            authorizeRequests()
-           .antMatchers("/").permitAll()
-           .antMatchers("/login").permitAll()
-           .antMatchers("/registration").permitAll()
-           .antMatchers("/converter").hasAuthority("USER").anyRequest()
+           .requestMatchers("/").permitAll()
+           .requestMatchers("/login").permitAll()
+           .requestMatchers("/registration").permitAll()
+           .requestMatchers("/converter").hasAuthority("USER").anyRequest()
            .authenticated().and().csrf().disable().formLogin()
            .loginPage("/login").failureUrl("/login?error=true")
            .defaultSuccessUrl("/converter")

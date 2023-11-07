@@ -1,14 +1,15 @@
 package com.se77.currencyConverter.service;
 
-import static org.junit.Assert.*;
-
 import com.se77.currencyConverter.domain.jpa.User;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.Date;
 
@@ -16,7 +17,6 @@ import java.util.Date;
  * Test the operations of the user service implementation.
  * Created by superernie77 on 31.05.2017.
  */
-@RunWith(SpringRunner.class)
 @SpringBootTest
 public class UserServiceTest {
 
@@ -47,11 +47,11 @@ public class UserServiceTest {
         user = userServie.findByEmail("test@test.de");
 
         // previously saved user should be loaded
-        Assert.assertNotNull(user);
+        assertNotNull(user);
 
         // data es loaded/saved successfully
-        Assert.assertEquals(user.getLastName(),"Elias" );
-        Assert.assertEquals(user.getFirstName(),"Ernesto" );
-        Assert.assertEquals(user.getEmail(),"test@test.de" );
+        assertEquals(user.getLastName(),"Elias" );
+        assertEquals(user.getFirstName(),"Ernesto" );
+        assertEquals(user.getEmail(),"test@test.de" );
     }
 }
