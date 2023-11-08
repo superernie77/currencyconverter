@@ -3,7 +3,6 @@ package com.se77.currencyConverter.controller;
 import com.se77.currencyConverter.domain.jpa.Conversion;
 import com.se77.currencyConverter.repository.ConversionRepository;
 import com.se77.currencyConverter.service.ConverterService;
-import com.se77.currencyConverter.controller.ConversionController;
 
 import static org.junit.jupiter.api.Assertions.assertNull;
 

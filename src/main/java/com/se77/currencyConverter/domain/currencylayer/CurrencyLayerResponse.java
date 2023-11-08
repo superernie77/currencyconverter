@@ -2,7 +2,6 @@ package com.se77.currencyConverter.domain.currencylayer;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import java.util.List;
 import java.util.Map;
 
 /**
