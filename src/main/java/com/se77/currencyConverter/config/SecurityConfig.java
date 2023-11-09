@@ -28,6 +28,7 @@ public class SecurityConfig {
 
     private static final String rolesQuery = "select u.email, r.role from user u inner join user_role ur on(u.user_id=ur.user_id) inner join role r on(ur.role_id=r.role_id) where u.email=?";
 
+    
     @Bean
     public UserDetailsManager users(DataSource dataSource) {
        
@@ -38,8 +39,7 @@ public class SecurityConfig {
         return users;
     }
     
- 
-    
+     
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     	   http.

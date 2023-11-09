@@ -8,7 +8,7 @@ A webapp to convert your riches into another currency of your choice!
 
 # How to build and start the app
 
-You will need to have Maven and Java 8 installed on your machine. Check out the source code and run the following Maven command on your command line to build an executable jar :
+You will need to have Maven and Java 17 installed on your machine. Check out the source code and run the following Maven command on your command line to build an executable jar :
 
 ```
   mvn clean verify
