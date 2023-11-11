@@ -18,7 +18,7 @@ import jakarta.persistence.Table;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@Table(name = "user")
+@Table(name = "userdata")
 public class User {
 
     @Id
