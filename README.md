@@ -29,12 +29,13 @@ http://localhost:8080/login
 
 # Used Technologies
 The following technologies were used to build the web application:
-- Spring Boot
-- Spring MVC
-- Spring Security
-- Spring Data-JPA
+
+- Spring Boot 3
+- Spring Web 6 
+- Spring Security 6
+- Spring Data-JPA 3
 - Thymeleaf
 - Jackson
 - Maven
-- Junit / Mockito
+- Junit 5 / Mockito 5
 - H2 DB
